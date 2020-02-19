@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D81EB85E23FCAD750088F3FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81EB85D23FCAD750088F3FD /* SceneDelegate.swift */; };
 		D823EFC123E4E2DD00268707 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D823EFC023E4E2DD00268707 /* Onboarding.storyboard */; };
 		D823EFC323E4F0D600268707 /* WalkthroughContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D823EFC223E4F0D600268707 /* WalkthroughContentViewController.swift */; };
 		D82B0C4023CFCC7E000FD770 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82B0C3F23CFCC7E000FD770 /* Restaurant.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D81EB85D23FCAD750088F3FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D823EFC023E4E2DD00268707 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		D823EFC223E4F0D600268707 /* WalkthroughContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughContentViewController.swift; sourceTree = "<group>"; };
 		D82B0C3F23CFCC7E000FD770 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
@@ -224,7 +226,6 @@
 		D840744423C5341300E5B165 /* FoodPin */ = {
 			isa = PBXGroup;
 			children = (
-				D8D3F42723F204BF00B48CC9 /* FoodPin.entitlements */,
 				D82B0C4423CFE8A2000FD770 /* Storyboard */,
 				D82B0C4323CFE890000FD770 /* View */,
 				D82B0C4223CFE870000FD770 /* Model */,
@@ -232,9 +233,11 @@
 				D840BA8823E2414500C7E0B5 /* FoodPin.xcdatamodeld */,
 				D840744C23C5341400E5B165 /* Assets.xcassets */,
 				D840744523C5341300E5B165 /* AppDelegate.swift */,
+				D81EB85D23FCAD750088F3FD /* SceneDelegate.swift */,
 				D840745123C5341400E5B165 /* Info.plist */,
 				D8E3B29823F7596500B8C588 /* Localizable.strings */,
 				D8E3B29523F7596500B8C588 /* InfoPlist.strings */,
+				D8D3F42723F204BF00B48CC9 /* FoodPin.entitlements */,
 			);
 			path = FoodPin;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				D8F97E2823CE36C000DDCBA1 /* RestaurantDetailViewController.swift in Sources */,
 				D8F9E3AA23D676E800E0BAEA /* RestaurantDetailSeparatorCell.swift in Sources */,
 				D8F9E3B223D9208D00E0BAEA /* RoundedTextField.swift in Sources */,
+				D81EB85E23FCAD750088F3FD /* SceneDelegate.swift in Sources */,
 				D823EFC323E4F0D600268707 /* WalkthroughContentViewController.swift in Sources */,
 				D840744623C5341300E5B165 /* AppDelegate.swift in Sources */,
 				D8F9E3B423D9232900E0BAEA /* NewRestaurantController.swift in Sources */,
