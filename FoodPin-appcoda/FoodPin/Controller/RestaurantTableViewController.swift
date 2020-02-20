@@ -263,6 +263,65 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
                        
     }
     
+    // MARK: - Context Menu Configuration
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: indexPath.row as NSCopying, previewProvider: {
+            
+            guard let restaurantDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantDetailViewController") as? RestaurantDetailViewController else {
+                return nil
+            }
+            
+            let selectedRestaurant = self.restaurants[indexPath.row]
+            restaurantDetailViewController.restaurant = selectedRestaurant
+            
+            return restaurantDetailViewController
+        }) { actions in
+            //Build the Action Items
+            
+            //Check-in Action
+            let checkInAction = UIAction(title: "Check-in", image: UIImage(systemName: "checkmark")) { action in
+                let cell = tableView.cellForRow(at: indexPath) as! RestaurantTableViewCell
+                
+                self.restaurants[indexPath.row].isVisited = self.restaurants[indexPath.row].isVisited ? false : true
+                cell.accessoryImageView.isHidden = self.restaurants[indexPath.row].isVisited ? false : true
+            }
+            
+            //Share Action
+            let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
+                let defaultText = NSLocalizedString("Just checking in at ", comment: "Just checking in at ") + self.restaurants[indexPath.row].name!
+                
+                let activityController : UIActivityViewController
+                
+                if let restaurantImage = self.restaurants[indexPath.row].image, let imageToShare = UIImage(data: restaurantImage as Data) {
+                    activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+                } else {
+                    activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+                }
+                
+                self.present(activityController, animated: true, completion: nil)
+            }
+            
+            //Delete Action
+            let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                //Delete the row from the data store
+                if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                    let context = appDelegate.persistentContainer.viewContext
+                    let restaurantToDelete = self.fetchResultController.object(at: indexPath)
+                    
+                    context.delete(restaurantToDelete)
+                    
+                    appDelegate.saveContext()
+                }
+            }
+            
+            //Create and return a UIMenu with the all the actions
+            return UIMenu(title: "", children: [checkInAction, shareAction, deleteAction])
+        }
+        
+        //Return Contenxt Menu Configuration
+        return configuration
+    }
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
