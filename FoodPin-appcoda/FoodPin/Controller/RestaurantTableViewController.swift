@@ -416,12 +416,25 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         let randomNum = Int.random(in: 0..<restaurants.count)
         let suggestedRestaurant = restaurants[randomNum]
         
+        
         //Create the user notification
         let content = UNMutableNotificationContent()
         content.title = "Restaurant Recommendation"
         content.subtitle = "Try a new restaurant today!"
         content.body = "I recommend you to check out \(suggestedRestaurant.name!). Would you like to try it out?"
         content.sound = UNNotificationSound.default
+        
+        
+        let temDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let tempFileURL = temDirURL.appendingPathComponent("suggested-restaurant.jpg")
+        
+        if let image = UIImage(data: suggestedRestaurant.image! as Data) {
+            try? image.jpegData(compressionQuality: 1.0)?.write(to: tempFileURL)
+            
+            if let restaurantImage = try? UNNotificationAttachment(identifier: "restaurantImage", url: tempFileURL, options: nil) {
+                content.attachments = [restaurantImage]
+            }
+        }
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         
