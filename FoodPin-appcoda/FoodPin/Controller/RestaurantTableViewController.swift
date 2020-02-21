@@ -322,6 +322,28 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         return configuration
     }
     
+    override func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        
+        //Get the selectedRow from the configuration
+        guard let selectedRow = configuration.identifier as? Int else {
+            print("Failed to retreive row number")
+            return
+        }
+        
+        guard let restaurantDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "RestaurantDetailViewController") as? RestaurantDetailViewController else {
+            return
+        }
+        
+        let selectedRestaurant = self.restaurants[selectedRow]
+        restaurantDetailViewController.restaurant = selectedRestaurant
+        
+        //Animates the cahnge and display of the restaurantDetailViewController
+        animator.preferredCommitStyle = .pop
+        animator.addCompletion {
+            self.show(restaurantDetailViewController, sender: self)
+        }
+    }
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
