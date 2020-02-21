@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 @available(iOS 13.0, *)
 class RestaurantTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
@@ -82,6 +83,9 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         
         //Removes extra separators on empty cells of the table view
         tableView.tableFooterView = UIView()
+        
+        //Prepare the user notification
+        prepareNotification()
         
     }
     
@@ -263,6 +267,38 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
                        
     }
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        default:
+            tableView.reloadData()
+        }
+        
+        if let fetchedObjects = controller.fetchedObjects {
+            restaurants = fetchedObjects as! [RestaurantMO]
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
     // MARK: - Context Menu Configuration
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: indexPath.row as NSCopying, previewProvider: {
@@ -343,38 +379,8 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
             self.show(restaurantDetailViewController, sender: self)
         }
     }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        switch type {
-        case .insert:
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-        case .delete:
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-        case .update:
-            if let indexPath = indexPath {
-                tableView.reloadRows(at: [indexPath], with: .fade)
-            }
-        default:
-            tableView.reloadData()
-        }
-        
-        if let fetchedObjects = controller.fetchedObjects {
-            restaurants = fetchedObjects as! [RestaurantMO]
-        }
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
+    //MARK: - Search
     
     func filterContent(for searchText: String) {
         
@@ -398,6 +404,35 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
             
         }
     }
+    
+    //MARK: - User Notification
+    func prepareNotification() {
+        //Make sure the restaurant array is not empty
+        if restaurants.count <= 0 {
+            return
+        }
+        
+        //Pick a restaurant randomly
+        let randomNum = Int.random(in: 0..<restaurants.count)
+        let suggestedRestaurant = restaurants[randomNum]
+        
+        //Create the user notification
+        let content = UNMutableNotificationContent()
+        content.title = "Restaurant Recommendation"
+        content.subtitle = "Try a new restaurant today!"
+        content.body = "I recommend you to check out \(suggestedRestaurant.name!). Would you like to try it out?"
+        content.sound = UNNotificationSound.default
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "foodpin.restaurantSuggestion", content: content, trigger: trigger)
+        
+        //Schedule the notification
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+        
+        
+    
     
     // MARK: - Navigation
 

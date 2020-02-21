@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 
 @available(iOS 13.0, *)
@@ -26,6 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Customization of the tab bar
         UITabBar.appearance().tintColor = UIColor(red: 231, green: 76, blue: 60)
         UITabBar.appearance().barTintColor = UIColor(red: 250, green: 250, blue: 250)
+        
+        //Request permission for user notifications
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            
+            if granted {
+                print("User notifications are allowed.")
+            } else {
+                print("User notifications are not allowed.")
+            }
+        }
         
         return true
     }

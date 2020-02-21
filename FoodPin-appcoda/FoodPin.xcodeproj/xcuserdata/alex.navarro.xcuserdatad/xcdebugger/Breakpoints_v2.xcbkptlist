@@ -7,74 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4F363F32-0F92-43A3-AAC0-2161C87A9A13"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodPin/Controller/RestaurantTableViewController.swift"
-            timestampString = "0"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
-            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "216D6002-DE59-4B9B-B74C-D08119CDE1D0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FoodPin/Controller/RestaurantTableViewController.swift"
-            timestampString = "0"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "controller(_:didChange:at:for:newIndexPath:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "216D6002-DE59-4B9B-B74C-D08119CDE1D0 - 4e5cf435234624af"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FoodPin.RestaurantTableViewController.filterContent(for: Swift.String) -&gt; ()"
-                  moduleName = "FoodPin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.navarro/Documents/FoodPin/FoodPin/Controller/RestaurantTableViewController.swift"
-                  timestampString = "0"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "284"
-                  endingLineNumber = "284"
-                  offsetFromSymbolStart = "46">
-               </Location>
-               <Location
-                  uuid = "216D6002-DE59-4B9B-B74C-D08119CDE1D0 - 1219c51e2240fabf"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FoodPin.RestaurantMO) -&gt; Swift.Bool in FoodPin.RestaurantTableViewController.filterContent(for: Swift.String) -&gt; ()"
-                  moduleName = "FoodPin"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alex.navarro/Documents/FoodPin/FoodPin/Controller/RestaurantTableViewController.swift"
-                  timestampString = "0"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "286"
-                  endingLineNumber = "286"
-                  offsetFromSymbolStart = "206">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "794F9E12-CAF0-44FE-B91B-87EDB1402477"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -82,8 +14,8 @@
             filePath = "FoodPin/Controller/RestaurantTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "tableView(_:contextMenuConfigurationForRowAt:point:)"
             landmarkType = "7">
          </BreakpointContent>
