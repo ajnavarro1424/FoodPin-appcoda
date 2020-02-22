@@ -422,6 +422,7 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
         content.title = "Restaurant Recommendation"
         content.subtitle = "Try a new restaurant today!"
         content.body = "I recommend you to check out \(suggestedRestaurant.name!). Would you like to try it out?"
+        content.userInfo = ["phone" : suggestedRestaurant.phone!]
         content.sound = UNNotificationSound.default
         
         
@@ -435,6 +436,23 @@ class RestaurantTableViewController: UITableViewController, NSFetchedResultsCont
                 content.attachments = [restaurantImage]
             }
         }
+        
+        //Custom Actions on the User Notification
+        let categoryIdentifier = "foodpin.restaurantaction"
+        
+        let makeReservationAction = UNNotificationAction(identifier: "foodpin.makeReservation", title: "Call", options: [.foreground])
+        let cancelAction = UNNotificationAction(identifier: "foodpin.cancel", title: "Dismiss", options: [])
+        
+        //Assocaite action objects with the category
+        let category = UNNotificationCategory(identifier: categoryIdentifier, actions: [makeReservationAction, cancelAction], intentIdentifiers: [], options: [])
+        
+        //Register the category with the UNUserNotificationCenter object
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        
+        //Assocaite the actions to the notification using the category identifier
+        content.categoryIdentifier = categoryIdentifier
+        
+        
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         

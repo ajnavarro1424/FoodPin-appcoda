@@ -30,13 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Request permission for user notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
-            
             if granted {
                 print("User notifications are allowed.")
             } else {
                 print("User notifications are not allowed.")
             }
         }
+        
+        //Set the delegate of the notification center
+        UNUserNotificationCenter.current().delegate = self
         
         return true
     }
@@ -75,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
+    
     //MARK: - Core Data Stack
     lazy var persistentContainer: NSPersistentContainer = {
         
@@ -105,3 +108,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+//MARK: - User Notification
+@available(iOS 13.0, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.actionIdentifier == "foodpin.makeReservation" {
+            print("Calling the restaurant")
+            //Retrieve the phone number from content.userInfo
+            if let phone = response.notification.request.content.userInfo["phone"] {
+                let telURL = "tel://\(phone)"
+                if let url = URL(string: telURL) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        print("Calling \(telURL)")
+                        //Launch Phone system app by using "tel" notation
+                        UIApplication.shared.open(url)
+                    }
+                }
+                
+            }
+        }
+        //Let the system know we're done processing the notification
+        completionHandler()
+    }
+}
